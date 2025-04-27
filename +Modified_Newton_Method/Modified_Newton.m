@@ -5,7 +5,7 @@ function x_min= Modified_Newton(x0, f, g, H, tol)
 
 %parameters
 alpha_0= 1;
-rho= 0.3;
+rho= 0.5;
 c=1e-4;
 
 x=x0; gx=g(x);
@@ -28,7 +28,7 @@ while ~(norm(gx) < tol)
     p_k = B\(-gx);                               %solving the system in order to find p_k
 
     alpha=alpha_0; 
-    bt_count = 0;
+    count = 0;
     f_old=f(x);
    
     while true                                   %backtracking line search
@@ -39,16 +39,16 @@ while ~(norm(gx) < tol)
             break;
         end
 
-        bt_count = bt_count + 1;
-        if bt_count > 20 || alpha < 1e-8
+        count = count + 1;
+        if count > 20 || alpha < 1e-8
             break;
         end
     end
     
-    x_old=x;
     x = x + (alpha*p_k).';                       %updating x
     gx=g(x);                                     %updating g(x)
-
+    disp(norm(gx));
+    
 end
 
 x_min=x;
