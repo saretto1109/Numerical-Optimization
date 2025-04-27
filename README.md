@@ -16,7 +16,7 @@ This repository contains solutions and implementations developed for the course 
 
 ### Author
 
-[Your Name]
+Sara Attiani
 
 ---
 
