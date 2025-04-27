@@ -1,0 +1,12 @@
+# Backup
+*.asv
+
+# Live scripts
+*.mlx
+
+# File salvati
+*.mat
+*.fig
+
+# File di sistema
+.DS_Store
