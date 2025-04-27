@@ -1,4 +1,4 @@
-## Assignments
+## Numerical Optimization for Large Scale Problems Assignment
 
 Politecnico di Torino  
 A.Y. 2024/2025
