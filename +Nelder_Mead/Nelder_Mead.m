@@ -9,6 +9,10 @@ p_e= 2;
 p_c= 0.5; 
 p_s= 0.5;
 
+%implementing an adaptive restart strategy 
+maxiter=300*length(x0);
+i=0;
+
 %figure(1); hold on;          
 %axis equal; grid on;
 %xlabel('x'); ylabel('y');
@@ -49,7 +53,7 @@ while ~Nelder_Mead.Acceptable_Diameter(S,tol)
         f_outc= f(x_outc);
         if f_outc < f_r
             S_sorted(:,end)= x_outc;
-            S=S_sorted;
+            S=S_sorted;          
         else
             S= Nelder_Mead.Shrink(S_sorted,p_s);                           %shrink
         end
@@ -66,7 +70,18 @@ while ~Nelder_Mead.Acceptable_Diameter(S,tol)
     end
     [S_sorted,F_sorted]= Nelder_Mead.Sort(S,f);
     c=Nelder_Mead.Centroid(S_sorted); 
+
+    i=i+1;
+    if (i>maxiter)                                                         %restarting from the best x find so far
+        S= Nelder_Mead.Generate_simplex(S_sorted(:, 1));
+        [S_sorted,F_sorted]= Nelder_Mead.Sort(S,f);
+        c=Nelder_Mead.Centroid(S_sorted);
+        i=0;
+    end
+
 end
-x_min= S_sorted(:, end);
+
+x_min= S_sorted(:, 1);
+
 end
 
