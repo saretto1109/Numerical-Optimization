@@ -4,7 +4,7 @@ function x_min= Modified_Newton(x0, f, g, H, tol)
 %   Output: the solution of the minimization x_min (approximated accordig to tol)
 
 %parameters
-alpha_0= 2;   %Siamo sicuri di tenerlo così alto????????????? Fuck 
+alpha_0= 2;   %Is it correct?
 rho= 0.5;
 c=1e-4;
 
