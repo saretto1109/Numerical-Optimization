@@ -4,51 +4,62 @@ function x_min= Modified_Newton(x0, f, g, H, tol)
 %   Output: the solution of the minimization x_min (approximated accordig to tol)
 
 %parameters
-alpha_0= 1;
+alpha_0= 2;   %Siamo sicuri di tenerlo così alto????????????? Fuck 
 rho= 0.5;
 c=1e-4;
 
-x=x0; gx=g(x);
+n=length(x0); x=x0; fx=f(x); gx=g(x);
 
-while ~(norm(gx) < tol)
-    Hx=H(x);                                     %updating H(x)
+while norm(gx) > tol
 
-    t = 1e-6;                                    %using t as a small little increment
+    Hx=H(x);                                                               %updating H(x)
+
+    t = 1e-6;                                                              %using t as a small little increment
 
     while true
-        B = Hx + t*eye(length(x));
-        [~, p] = chol(B);                        %using Cholesky factorization to check if B is positive definite
+        B = Hx + t*eye(n);
+        [~, p] = chol(B);                                                  %using Cholesky factorization to check if B is positive definite
         if p == 0  
             break;
         else
-            t = t * 2;                           %doubling t if B is not positive definite
+            t = t * 10;                                                    %imcrementing t if B is not positive definite
         end
     end
     
-    p_k = B\(-gx);                               %solving the system in order to find p_k
+    p_k = - B\gx;                                                          %solving the system in order to find p_k
+    
+    if gx' * p_k > -1e-12                                                  %if the direction is NOT descendent, fallback on gradient
+        p_k = -gx;
+    end
+
+    if norm(p_k) > 1e3
+        p_k = p_k / norm(p_k) * 1e3;
+    end
 
     alpha=alpha_0; 
     count = 0;
-    f_old=f(x);
+    maxiter=20;
    
-    while true                                   %backtracking line search
-        f_new= f(x + (alpha*p_k).');
-        if f_new > f_old + c*alpha*(gx'*p_k)
-            alpha = rho * alpha;
-        else
+    while true                                                             %backtracking line search
+        x_new = x + alpha * p_k;
+        f_new= f(x_new);
+        if f_new <= fx + c * alpha * (gx' * p_k)
             break;
         end
 
+        alpha = rho * alpha;
+
         count = count + 1;
-        if count > 20 || alpha < 1e-8
+        if count > maxiter || alpha < 1e-10
             break;
         end
     end
-    
-    x = x + (alpha*p_k).';                       %updating x
-    gx=g(x);                                     %updating g(x)
-    disp(norm(gx));
-    
+
+    x = x_new;                                                             %updating x
+    fx= f(x);                                                              %updating f(x)
+    gx= g(x);                                                              %updating g(x)
+
+    fprintf(['f_new: ', num2str(f_new), ' norma gx: ', num2str(norm(gx)), '\n']);
 end
 
 x_min=x;

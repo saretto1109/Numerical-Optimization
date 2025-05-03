@@ -5,8 +5,7 @@ import Tests.Unconstrained.Problem1.*
 N= [10, 25, 50];  
 
 %TESTS --------------------------------------------------------------------
-for j=1:3
-    
+for j=1:3    
     %Preparing Nelder Mead's inputs
     n=N(j);
     x0= starting_point(n);
@@ -30,6 +29,5 @@ for j=1:3
     end
     
     fprintf('\n');
-
 end
 

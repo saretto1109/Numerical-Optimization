@@ -72,7 +72,7 @@ while ~Nelder_Mead.Acceptable_Diameter(S,tol)
     c=Nelder_Mead.Centroid(S_sorted); 
 
     i=i+1;
-    if (i>maxiter)                                                         %restarting from the best x find so far
+    if (i>maxiter)                                                         %restarting from the best x found so far
         S= Nelder_Mead.Generate_simplex(S_sorted(:, 1));
         [S_sorted,F_sorted]= Nelder_Mead.Sort(S,f);
         c=Nelder_Mead.Centroid(S_sorted);

@@ -4,8 +4,7 @@ import Tests.Unconstrained.Problem1.*
 
 N= [10^3, 10^4 10^5];  
 
-for j=1:3
-    
+for j=1:1
     %Preparing Modified Newton's inputs
     n=N(j);
     x0= starting_point(n);
@@ -18,7 +17,7 @@ for j=1:3
     disp(['MODIFIED NEWTON - TEST ', num2str(j) ' >> n=', num2str(n)]);
     for i=1:10
         tic;
-        Successo= Modified_Newton(x0,f,g,H,0.0001);
+        Successo= Modified_Newton(points(:,i),f,g,H,0.0001) - Solution < 1e-4;
         time= toc;
         if Successo
             out='Successo';
@@ -29,5 +28,4 @@ for j=1:3
     end
     
     fprintf('\n');
-
 end
