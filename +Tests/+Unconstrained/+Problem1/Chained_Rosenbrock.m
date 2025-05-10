@@ -7,8 +7,8 @@ F = @(x) sum(100*(x(2:n) - x(1:n-1).^2).^2 + (1 - x(1:n-1)).^2);           %func
 
 gradF = @(x) gradient(x,n);                                                %gradient
 
-hessF = @(x) hessian(x,n);                                                 %hessian
-%hessF = @(x) hessian_sparse(x,n);                                         %hessian sparse
+%hessF = @(x) hessian(x,n);                                                 %hessian
+hessF = @(x) hessian_sparse(x,n);                                         %hessian sparse
 end
 
 

@@ -4,7 +4,7 @@ function x_min= Modified_Newton(x0, f, g, H, tol)
 %   Output: the solution of the minimization x_min (approximated accordig to tol)
 
 %parameters
-alpha_0= 2;   %Is it correct?
+alpha_0= 10;   %Is it correct?
 rho= 0.5;
 c=1e-4;
 
@@ -17,8 +17,8 @@ while norm(gx) > tol
     t = 1e-6;                                                              %using t as a small little increment
 
     while true
-        B = Hx + t*eye(n);
-        [~, p] = chol(B);                                                  %using Cholesky factorization to check if B is positive definite
+        B = Hx + t*speye(n);
+        [L, p] = chol(B, 'lower');                                         %using Cholesky factorization to check if B is positive definite
         if p == 0  
             break;
         else
@@ -26,7 +26,7 @@ while norm(gx) > tol
         end
     end
     
-    p_k = - B\gx;                                                          %solving the system in order to find p_k
+    p_k = - L\gx;                                                          %solving the system in order to find p_k
     
     if gx' * p_k > -1e-12                                                  %if the direction is NOT descendent, fallback on gradient
         p_k = -gx;
@@ -59,7 +59,7 @@ while norm(gx) > tol
     fx= f(x);                                                              %updating f(x)
     gx= g(x);                                                              %updating g(x)
 
-    fprintf(['f_new: ', num2str(f_new), ' norma gx: ', num2str(norm(gx)), '\n']);
+    %fprintf(['f_new: ', num2str(f_new), ' norma gx: ', num2str(norm(gx)), '\n']);
 end
 
 x_min=x;
