@@ -4,7 +4,7 @@ function x_min= Modified_Newton(x0, f, g, H, tol)
 %   Output: the solution of the minimization x_min (approximated accordig to tol)
 
 %parameters
-alpha_0= 10;   %Is it correct?
+alpha_0=1;   
 rho= 0.5;
 c=1e-4;
 
@@ -14,7 +14,7 @@ while norm(gx) > tol
 
     Hx=H(x);                                                               %updating H(x)
 
-    t = 1e-6;                                                              %using t as a small little increment
+    t = 1e-3;                                                              %using t as a small little increment
 
     while true
         B = Hx + t*speye(n);
@@ -59,7 +59,6 @@ while norm(gx) > tol
     fx= f(x);                                                              %updating f(x)
     gx= g(x);                                                              %updating g(x)
 
-    %fprintf(['f_new: ', num2str(f_new), ' norma gx: ', num2str(norm(gx)), '\n']);
 end
 
 x_min=x;

@@ -37,12 +37,16 @@ end
 
 %Function caluculating the hessian using a "white boxe" approach, exploiting the structure of the function
 function H = hessian_sparse(x, n)
-    H = spalloc(n, n, 3*n); 
+    main_diag  = zeros(n,1);                
+    sub_diag   = zeros(n,1);   
+    super_diag = zeros(n,1);   
 
     for i = 1:n-1
-        H(i,i) = -400*(x(i+1) - x(i)^2) + 800*x(i)^2 + 2;
-        H(i,i+1) = -400*x(i);
-        H(i+1,i) = -400*x(i);
+        main_diag(i) = main_diag(i) + 800*x(i)^2 - 400*(x(i+1) - x(i)^2) + 2;
+        sub_diag(i)  = -400*x(i);
+        super_diag(i)= -400*x(i);
     end
-    H(n,n) = 200;
+    main_diag(n) = 200;
+
+    H = spdiags([sub_diag, main_diag, super_diag], [-1 0 1], n, n);
 end

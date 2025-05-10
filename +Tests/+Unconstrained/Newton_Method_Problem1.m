@@ -2,7 +2,7 @@ import Nelder_Mead.*
 import Modified_Newton_Method.*
 import Tests.Unconstrained.Problem1.*
 
-N= [10^4 10^5];  
+N= [10^2, 10^3, 10^4 10^5];  
 
 for j=1:length(N)
     %Preparing Modified Newton's inputs
