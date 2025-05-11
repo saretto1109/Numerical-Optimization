@@ -1,8 +1,8 @@
 import Nelder_Mead.*
 import Modified_Newton_Method.*
-import Tests.Unconstrained.Problem1.*
+import Tests.Unconstrained.Test_Functions.*
 
-N= [10^2, 10^3, 10^4 10^5];  
+N= [10^3,10^4];  
 
 for j=1:length(N)
     %Preparing Modified Newton's inputs
@@ -24,8 +24,9 @@ for j=1:length(N)
         else
             out='Fallimento';
         end
-        disp(['Esecuzione ', num2str(i), ': ', out, ' >>> Tempo di esecuzione: ', num2str(time), ' secondi']);
+        print_exec_time(i, time,out);
     end
     
     fprintf('\n');
 end
+

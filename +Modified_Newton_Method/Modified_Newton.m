@@ -7,25 +7,27 @@ function x_min= Modified_Newton(x0, f, g, H, tol)
 alpha_0=1;   
 rho= 0.5;
 c=1e-4;
+t = 1e-3;
 
 n=length(x0); x=x0; fx=f(x); gx=g(x);
 
 while norm(gx) > tol
 
     Hx=H(x);                                                               %updating H(x)
-
-    t = 1e-3;                                                              %using t as a small little increment
+    
+    t_curr = t;                                                            %using t_curr as a small little increment
 
     while true
-        B = Hx + t*speye(n);
+        B = Hx + t_curr*speye(n);
         [L, p] = chol(B, 'lower');                                         %using Cholesky factorization to check if B is positive definite
         if p == 0  
+            t=t_curr;                                                      %keep track of t used so far
             break;
         else
-            t = t * 10;                                                    %imcrementing t if B is not positive definite
+            t_curr = t_curr * 10;                                          %incrementing t_curr if B is not positive definite
         end
     end
-    
+
     p_k = - L\gx;                                                          %solving the system in order to find p_k
     
     if gx' * p_k > -1e-12                                                  %if the direction is NOT descendent, fallback on gradient
