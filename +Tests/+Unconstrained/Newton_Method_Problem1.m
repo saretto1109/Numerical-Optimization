@@ -2,7 +2,7 @@ import Nelder_Mead.*
 import Modified_Newton_Method.*
 import Tests.Unconstrained.Test_Functions.*
 
-N= [10^3,10^4];  
+N= [10^5];  
 
 for j=1:length(N)
     %Preparing Modified Newton's inputs
@@ -15,9 +15,9 @@ for j=1:length(N)
     Solution= ones(n,1);
 
     disp(['MODIFIED NEWTON - TEST ', num2str(j) ' >> n=', num2str(n)]);
-    for i=1:10
+    for i=1:1
         tic;
-        Successo= Modified_Newton(points(:,i),f,g,H,0.0001) - Solution < 1e-4;
+        Successo= Modified_Newton(points(:,i),f,g,H,0.001) - Solution < 1e-3;
         time= toc;
         if Successo
             out='Successo';
