@@ -3,7 +3,7 @@ function is_acceptable = Acceptable_Diameter(S, tol)
 %   Input: the simplex S, a tolerance threshold tol
 %   Output: true if the diameter of the simplex is below the threshold
 
-D = pdist(S);          
+D = pdist(S');          
 diam = max(D);
 is_acceptable= diam < tol;
 end

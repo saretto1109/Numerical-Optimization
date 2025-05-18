@@ -1,7 +1,6 @@
 import Nelder_Mead.*
 import Modified_Newton_Method.*
 import Tests.Unconstrained.Test_Functions.*
-warning('off', 'all');
 
 N= [10^3, 10^4, 10^5];
 tol= 1e-6;

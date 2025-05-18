@@ -1,33 +1,38 @@
 import Nelder_Mead.*
 import Modified_Newton_Method.*
-import Tests.Unconstrained.Problem1.*
+import Tests.Unconstrained.Test_Functions.*
 
-N= [10, 25, 50];  
 
-%TESTS --------------------------------------------------------------------
-for j=1:3    
-    %Preparing Nelder Mead's inputs
+N= [10,25,50];
+tol= 1e-6;
+times = zeros(10*length(N),1);
+results = strings(10*length(N),1);
+
+for j=1:length(N)
     n=N(j);
     x0= starting_point(n);
-    points= Random_Points(x0);
-    [f,~, ~]= Chained_Rosenbrock(n);
+    points= Random_Points(x0);                  
+    [f,~,~]= Chained_Rosenbrock(n);
 
-    %NELDER MEAD ----------------------------------------------------------
+    %MODIFIED NEWTON ------------------------------------------------------
     Solution= ones(n,1);
 
-    disp(['NEALDER MEAD - TEST ', num2str(j) ' >> n=', num2str(n)]);
+    fprintf('%10s | %10s | %10s\n', 'n', 'Tempo [s]', 'IsGlobal?');
+    fprintf('---------------------------------------------\n');
+
     for i=1:10
         tic;
-        Successo= Nelder_Mead(points(:,i),f,0.0001) - Solution < 1e-4;
-        time= toc;
+        x= Nelder_Mead(points(:,i),f, tol);
+        times(i)=toc;
+        Successo= norm(x - Solution) <= tol;
         if Successo
-            out='Successo';
+            results(i)='Sì';
         else
-            out='Fallimento';
-        end
-        disp(['Esecuzione ', num2str(i), ': ', out, ' >>> Tempo di esecuzione: ', num2str(time), ' secondi']);
-    end
-    
+            results(i)='No';
+        end 
+        fprintf('%10d | %10.4f | %10s\n', n, times(i), results(i));
+    end   
     fprintf('\n');
 end
+
 
