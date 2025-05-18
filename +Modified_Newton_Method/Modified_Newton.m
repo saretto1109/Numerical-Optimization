@@ -1,4 +1,4 @@
-function x_min= Modified_Newton(x0, f, g, H, tol)
+function [x_min, f_min]= Modified_Newton(x0, f, g, H, tol)
 %MODIFIED_NEWTON_METHOD implements the modified Newton Method, embedded with a back-tracking strategy for the line search.
 %   Inputs: starting point x0, the function (handle) f, the gradient g (handle), the hessian H (hanlde), a tolerance value 
 %   Output: the solution of the minimization x_min (approximated accordig to tol)
@@ -34,6 +34,7 @@ while norm(gx) > tol
 
 end
 x_min=x;
+f_min=f(x_min);
 end
 
 

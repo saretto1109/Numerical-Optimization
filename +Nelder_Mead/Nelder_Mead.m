@@ -1,4 +1,4 @@
-function x_min = Nelder_Mead(x0,f, tol)
+function [x_min, f_min] = Nelder_Mead(x0,f, tol)
 %NELDER_MEAD implements the Nelder Mead method with fixed params (p_r=1, p_e=2, p_c=0.5, p_s=0.5)
 %   Inputs: a starting point x0, the function (handle) f, a tolerance value tol
 %   Output: the solution of the minimization x_min (approximated accordig to tol)
@@ -82,6 +82,7 @@ while ~Nelder_Mead.Acceptable_Diameter(S,tol)
 end
 
 x_min= S_sorted(:, 1);
+f_min= f(x_min);
 
 end
 

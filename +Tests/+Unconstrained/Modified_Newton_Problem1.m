@@ -4,7 +4,7 @@ import Tests.Unconstrained.Test_Functions.*
 
 N= [10^3, 10^4, 10^5];
 tol= 1e-6;
-times = zeros(10*length(N),1);
+times = strings(10*length(N),1);
 results = strings(10*length(N),1);
 
 for j=1:length(N)
@@ -17,20 +17,23 @@ for j=1:length(N)
     %MODIFIED NEWTON ------------------------------------------------------
     Solution= ones(n,1);
 
-    fprintf('%10s | %10s | %10s\n', 'n', 'Tempo [s]', 'IsGlobal?');
-    fprintf('---------------------------------------------\n');
+    fprintf('%10s | %10s | %10s | %10s\n', 'n', 'Time', 'F(x)', 'IsGlobal?');
+    fprintf('----------------------------------------------------\n');
 
     for i=1:10
         tic;
-        x= Modified_Newton(points(:, i),f,g,H,tol);
-        times(i)=toc;
+        [x, fx]= Modified_Newton(points(:, i),f,g,H,tol);
+        t=toc;
+        times(i)=print_exec_time(t);
+
         Successo= norm(x - Solution) <= tol;
         if Successo
             results(i)='Sì';
         else
             results(i)='No';
         end 
-        fprintf('%10d | %10.4f | %10s\n', n, times(i), results(i));
+
+        fprintf('%10d | %10s | %10.4f | %10s\n', n, times(i), fx, results(i));
     end   
     fprintf('\n');
 end
