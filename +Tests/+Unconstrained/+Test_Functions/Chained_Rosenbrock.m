@@ -1,5 +1,5 @@
 function [F,gradF, hessF] = Chained_Rosenbrock(n)
-%CHAINED_ROSENBROCK builds the Chained Rosenbrock function as defined and returns is, along with its gradient and its hessian matrix
+%CHAINED_ROSENBROCK builds the Chained Rosenbrock function as defined and returns it, along with its gradient and its hessian matrix
 %   Input: the dimension n of the problem
 %   Output: the Chained Rosenbrock function F, its gradient gradF and its hessian matrix hessF
 

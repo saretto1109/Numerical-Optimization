@@ -1,5 +1,5 @@
 function [F,gradF, hessF] = Banded_Trigonometric(n)
-%BANDED_TRIGONOMETRIC builds the Banded Trigonometric function as defined and returns is, along with its gradient and its hessian matrix
+%BANDED_TRIGONOMETRIC builds the Banded Trigonometric function as defined and returns it, along with its gradient and its hessian matrix
 %   Input: the dimension n of the problem
 %   Output: the Banded Trigonometric function F, its gradient gradF and its hessian matrix hessF
 
