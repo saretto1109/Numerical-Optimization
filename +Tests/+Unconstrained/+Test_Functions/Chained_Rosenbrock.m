@@ -1,6 +1,6 @@
 function [F,gradF, hessF] = Chained_Rosenbrock(n)
 %CHAINED_ROSENBROCK builds the Chained Rosenbrock function as defined and returns is, along with its gradient and its hessian matrix
-%   Input: a vector x in R^n
+%   Input: the dimension n of the problem
 %   Output: the Chained Rosenbrock function F, its gradient gradF and its hessian matrix hessF
 
 F = @(x) sum(100*(x(2:n) - x(1:n-1).^2).^2 + (1 - x(1:n-1)).^2);           %function
@@ -18,7 +18,7 @@ function g = gradient_function(x)
 end
 
 %Function caluculating the hessian using a "white boxe" approach, exploiting the structure of the function
-    function H = hessian_function(x)
+function H = hessian_function(x)
     main_diag_vals = zeros(n, 1);
     off_diag_vals = zeros(n-1, 1);
 
@@ -33,5 +33,5 @@ end
     end
 
     H = sparse(1:n, 1:n, main_diag_vals, n, n) + sparse(1:n-1, 2:n, off_diag_vals, n, n) + sparse(2:n, 1:n-1, off_diag_vals, n, n);
-    end
+end
 end

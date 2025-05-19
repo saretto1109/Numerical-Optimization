@@ -1,4 +1,4 @@
-function x0 = starting_point(n)
+function x0 = chained_starting_point(n)
 %STARTING_POINT builds a starting point vector of dimension n
 %   Input: the dimension n of the starting point
 %   Output: the starting point built as defined in V897-03-2.pdf Problem 1

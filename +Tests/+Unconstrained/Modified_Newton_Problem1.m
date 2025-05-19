@@ -10,7 +10,7 @@ results = strings(10*length(N),1);
 for j=1:length(N)
     %Preparing Modified Newton's inputs
     n=N(j);
-    x0= starting_point(n);
+    x0= chained_starting_point(n);
     points= Random_Points(x0);                  
     [f,g,H]= Chained_Rosenbrock(n);
 

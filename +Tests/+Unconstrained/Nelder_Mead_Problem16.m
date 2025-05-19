@@ -8,7 +8,7 @@ times = strings(10*length(N),1);
 
 for j=1:length(N)
     n=N(j);
-    x0= starting_point(n);
+    x0= ones(n,1);
     points= Random_Points(x0);                  
     [f,~,~]= Banded_Trigonometric(n);
 
